@@ -1,41 +1,46 @@
 import random
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+def f1(t,x,y):
+    return 0
+
+def f2(t,x,y):
+    return 0
 
 def one():
-    m = [[0,1,0,0,0,0],
-         [0.2,0,0.8,0,0,0,],
-         [0,0.4,0,0.6,0,0],
-         [0,0,0.6,0,0.4,0],
-         [0,0,0,0.8,0,0.2],
-         [0,0,0,0,1,0]]
+    x0=5
+    y0=10
+    t0=0
+    tn=75
+    a=0.1
+    b=0.04
+    c=0.3
+    d=0.03
+    h=0.5
 
-    k=0
-    m1=[]
-    sum=0
-    for n in range(20):
-        for i in m:
-            for j in i:
-                if(j==k):
-                    m1[i]=m[j]
+    N=((tn-t0)/h)+1
+
+    plt.rcParams["figure.figsize"] = (x0, y0)
+
+
+    for t in range(75):
+        xd=f1(t,x,y)
+        yd=f2(t,x,y)
+        
+
+        x[t]=x[t-1]+h*xd
+        y[t]=y[t-1]+h*yd
+
+        t+=h
+
+    plt.plot(x, y, linestyle="-", marker="o", label="X")
+    plt.plot(x, y, linestyle="-", marker="o", label="Y")
+    plt.legend()
+    plt.show()
+
     
-        for i in range(6):
-            z = random.randint(0, 1)
-            if ((z < m1[0]) and (z > 0)):
-                sum+=0
-            if ((z > m1[0]) and (z < m1[0]+m1[1])):
-                sum+=1
-            if ((z >  m1[0]+m1[1]) and (z < m1[0]+m1[1]+m1[2])):
-                sum+=2
-            if ((z > m1[0]+m1[1]+m1[2]) and (z < m1[0]+m1[1]+m1[2]+m1[3])):
-                sum+=3
-            if ((z > m1[0]+m1[1]+m1[2]+m1[3]) and (z < m1[0]+m1[1]+m1[2]+m1[3]+m1[4])):
-                sum+=4
-            if ((z > m1[0]+m1[1]+m1[2]+m1[3]+m1[4]) and (z < m1[0]+m1[1]+m1[2]+m1[3]+m1[4]+m1[5])):
-                sum+=5
-            if ((z > m1[0]+m1[1]+m1[2]+m1[3]+m1[4]+m1[5]) and (z < 1)):
-                sum+=6
-            print ("Sum: ",sum)
-        k=sum
-        sum=0
 
         
         
