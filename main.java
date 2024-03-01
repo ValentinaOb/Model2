@@ -49,42 +49,41 @@ public class main {
 
         int k = 1;
         double m1[] = new double[6];
-        for (int l = 0; l < 6; l++) {
-            for (int j = 0; j < 6; j++) {
-                if (l == k) {
-                    m1[j] = m[l][j];
-                }
-            }
-        }
 
         for (int i = 0; i < 20; i++) {
-            System.out.println("Static: " + lan(m1, 6));
+
+            for (int l = 0; l < 6; l++) {
+                for (int j = 0; j < 6; j++) {
+                    if (l == k) {
+                        m1[j] = m[l][j];
+                        // System.out.println(m1[j]);
+                    }
+                }
+            }
+
+            k = lan(m1, 6);
+            System.out.println("Static: " + k);
         }
     }
 
     public static void main2(String[] args) {
         double[][] m = { { 0, 0.5, 0.5 }, { 0.25, 0.5, 0.25 }, { 0.25, 0.25, 0.5 } };
 
-        int k = 1;
+        int k = 0;
         double m1[] = new double[3];
 
-        // System.out.println("\nM: ");
-        for (int l = 0; l < 3; l++) {
-            for (int j = 0; j < 3; j++) {
-                if (l == k) {
-                    m1[j] = m[l][j];
-                    // System.out.print(m[l][j] + " ");
+        for (int i = 0; i < 20; i++) {
+
+            for (int l = 0; l < 3; l++) {
+                for (int j = 0; j < 3; j++) {
+                    if (l == k) {
+                        m1[j] = m[l][j];
+                        // System.out.print(m[l][j] + " ");
+                    }
                 }
             }
-        }
-        /*
-         * System.out.println("\nM: ");
-         * for (int j = 0; j < 3; j++) {
-         * System.out.print(m1[j] + " ");
-         * }
-         */
-        for (int i = 0; i < 20; i++) {
-            System.out.println("Static: " + lan(m1, 3));
+            k = lan(m1, 3);
+            System.out.println("Static: " + k);
         }
     }
 
@@ -94,16 +93,18 @@ public class main {
         int k = 1;
         double m1[] = new double[4];
 
-        for (int l = 0; l < 4; l++) {
-            for (int j = 0; j < 4; j++) {
-                if (l == k) {
-                    m1[j] = m[l][j];
+        for (int i = 0; i < 10; i++) {
+
+            for (int l = 0; l < 4; l++) {
+                for (int j = 0; j < 4; j++) {
+                    if (l == k) {
+                        m1[j] = m[l][j];
+                    }
                 }
             }
-        }
 
-        for (int i = 0; i < 10; i++) {
-            System.out.println("Static: " + lan(m1, 4));
+            k = lan(m1, 4);
+            System.out.println("Static: " + k);
         }
 
     }
@@ -111,27 +112,28 @@ public class main {
     public static void main4(String[] args) {
         double[][] m = { { 1, 0, 0, 0 }, { 0.25, 0.35, 0.4, 0 }, { 0.25, 0, 0.35, 0.4 }, { 0, 0.25, 0, 0.75 } };
 
-        int k = 2;
+        int k = 3;
         double bankr = 0;
         double m1[] = new double[4];
-        int r[] = new int[5];
-        for (int l = 0; l < 4; l++) {
-            for (int j = 0; j < 4; j++) {
-                if (l == k) {
-                    m1[j] = m[l][j];
-                }
-            }
-        }
 
-        for (int j = 0; j < 100; j++) {
+        for (int j = 0; j < 25; j++) {
             for (int i = 0; i < 5; i++) {
-                r[i] = lan(m1, 4);
-                System.out.println("Static: " + r[i]);
-                if (r[i] == 0)
+
+                for (int l = 0; l < 4; l++) {
+                    for (int p = 0; p < 4; p++) {
+                        if (l == k) {
+                            m1[p] = m[l][p];
+                        }
+                    }
+                }
+
+                k = lan(m1, 4);
+                System.out.println("Static: " + k);
+                if (k == 0)
                     bankr++;
             }
         }
-        System.out.println("Bankr: " + bankr / 500);
+        System.out.println("Bankr: " + bankr / 125);
 
     }
 
