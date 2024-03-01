@@ -90,7 +90,7 @@ public class main {
     public static void main3(String[] args) {
         double[][] m = { { 1, 0, 0, 0 }, { 0.25, 0.35, 0.4, 0 }, { 0.25, 0, 0.35, 0.4 }, { 0, 0.25, 0, 0.75 } };
 
-        int k = 1;
+        int k = 3;
         double m1[] = new double[4];
 
         for (int i = 0; i < 10; i++) {
