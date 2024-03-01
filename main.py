@@ -1,44 +1,52 @@
-import random
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
-
-def f1(t,x,y):
-    return 0
-
-def f2(t,x,y):
-    return 0
 
 def one():
     x0=5
-    y0=10
+    y0=15
     t0=0
-    tn=75
+    tn=150
     a=0.1
     b=0.04
     c=0.3
     d=0.03
     h=0.5
-
     N=((tn-t0)/h)+1
 
-    plt.rcParams["figure.figsize"] = (x0, y0)
+    x=[N]
+    y=[N]
+    t=[N]
+    
+    x[0]=x0
+    y[0]=y0
+    t[0]=t0
+    k=0
+    
+    print(len(x))
+    print(len(y))
 
 
-    for t in range(75):
-        xd=f1(t,x,y)
-        yd=f2(t,x,y)
-        
+    for i in range(int(N)):
+        if(i!=0):
+            xd=(a-b*y[i-1])*x[i-1]
+            yd=(-c+d*x[i-1])*y[i-1]
+            
+            x.append(x[i-1]+h*xd)
+            y.append(y[i-1]+h*yd)
+            k+=h
+            t.append(k)
+            
+    print(x)
+    print("Y: ")
+    print(y)
+    print("T: ")
+    print(t)
 
-        x[t]=x[t-1]+h*xd
-        y[t]=y[t-1]+h*yd
-
-        t+=h
-
-    plt.plot(x, y, linestyle="-", marker="o", label="X")
-    plt.plot(x, y, linestyle="-", marker="o", label="Y")
-    plt.legend()
+    plt.plot(t, x, label="Predator")
+    plt.plot(t, y, label="Victim")
+    plt.legend() 
     plt.show()
+    
 
     
 
