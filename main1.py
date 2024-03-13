@@ -229,7 +229,7 @@ def three():
     plt.show()
 
 
-'''
+
 n=int(input("N: "))
 match n:
     case 1:
@@ -238,6 +238,7 @@ match n:
         two()
     case 3:
         three()
-'''
 
+'''
 three()
+'''
