@@ -136,12 +136,14 @@ def one():
     plt.show()
 
 def two():
-    N=40
+    
+    N=1000
     St=[N]
     St[0]=10
     Wt=[N]
     Wt[0]=10
 
+    '''
     St1=[N]
     St1[0]=10
     Wt1=[N]
@@ -156,15 +158,17 @@ def two():
     St3[0]=10
     Wt3=[N]
     Wt3[0]=10
+    '''
 
     h=0.01
-    u =6
-    o=10
+    u =0.06
+    o=0.1
 
     k=h
     t=[N]
     t[0]=h
 
+    '''
     t1=[N]
     t1[0]=h
     
@@ -173,14 +177,31 @@ def two():
     
     t3=[N]
     t3[0]=h
+    '''
 
-    for i in range(N-1):
-        if(i!=0):
-            k+=h
-            t.append(k)
+    for j in range(4):
+        
+        for i in range(N-1):
+            if(i!=0):
+                k+=h
+                t.append(k)
 
-            Wt.append(Wt[i-1]+random.normalvariate(0, h))
-            St.append(St[i-1]*math.exp((u-((o*o)/2))*h+o*Wt[i]))
+                Wt.append(Wt[i-1]+random.normalvariate(0, h))
+                St.append(St[i-1]*math.exp((u-((o*o)/2))*h+o*Wt[i]))
+
+        plt.plot(t, St)
+        St=[N]
+        St[0]=10
+        Wt=[N]
+        Wt[0]=10
+        t=[N]
+        t[0]=h
+
+    plt.legend(["S", "S1","S2","S3"])
+    plt.show()
+
+    
+    '''
     k=h
     for i in range(N-1):
         if(i!=0):
@@ -205,13 +226,16 @@ def two():
 
             Wt3.append(Wt3[i-1]+random.normalvariate(0, h))
             St3.append(St3[i-1]*math.exp((u-((o*o)/2))*h+o*Wt3[i]))
-    
+    '''
+    '''
     plt.plot(t, St, label="S")
+    
+    
     plt.plot(t1, St1, label="S1")
     plt.plot(t2, St2, label="S2")
     plt.plot(t3, St3, label="S3")
-    plt.show()
-
+    '''
+    
 def three():
     lam=8   
     N=15
@@ -219,17 +243,98 @@ def three():
 
     P=[N]
     t=[N]
+    t[0]=0
+    h=0
 
     for i in range(int(N)):
         P.append(math.exp(-lam*i)*(((lam*i)**k)/math.factorial(k)))
+
         t.append(k)
         k+=1
 
-    plt.plot(t, P, label="P")
+    plt.title("Ex.3")
+    plt.hist(P,t, label="P")
     plt.show()
 
+ 
+def four():
+    
+    N=100
+    St=[N]
+    St[0]=10
+    Wt=[N]
+    Wt[0]=10
 
 
+    h=0.01
+    u =0.06
+    o=0.1
+
+    k=h
+    t=[N]
+    t[0]=h
+
+
+    for j in range(25):        
+        for i in range(N-1):
+            while h!=4:
+                if(i!=0):
+                    k+=h
+                    t.append(k)
+
+                    Wt.append(Wt[i-1]+random.normalvariate(0, 4))
+                    St.append(St[i-1]*math.exp((u-((o*o)/2))*h+o*Wt[i]))
+
+        plt.plot(t, St)
+        St=[N]
+        St[0]=10
+        Wt=[N]
+        Wt[0]=10
+        t=[N]
+        t[0]=h
+
+    #plt.legend(["S", "S1","S2","S3"])
+    plt.title("Ex.4")
+    plt.show()
+
+    
+    '''
+    k=h
+    for i in range(N-1):
+        if(i!=0):
+            k+=h
+            t1.append(k)
+
+            Wt1.append(Wt1[i-1]+random.normalvariate(0, h))
+            St1.append(St1[i-1]*math.exp((u-((o*o)/2))*h+o*Wt1[i]))
+    k=h
+    for i in range(N-1):
+        if(i!=0):
+            k+=h
+            t2.append(k)
+
+            Wt2.append(Wt2[i-1]+random.normalvariate(0, h))
+            St2.append(St2[i-1]*math.exp((u-((o*o)/2))*h+o*Wt2[i]))
+    k=h
+    for i in range(N-1):
+        if(i!=0):
+            k+=h
+            t3.append(k)
+
+            Wt3.append(Wt3[i-1]+random.normalvariate(0, h))
+            St3.append(St3[i-1]*math.exp((u-((o*o)/2))*h+o*Wt3[i]))
+    '''
+    '''
+    plt.plot(t, St, label="S")
+    
+    
+    plt.plot(t1, St1, label="S1")
+    plt.plot(t2, St2, label="S2")
+    plt.plot(t3, St3, label="S3")
+    '''
+    
+
+'''
 n=int(input("N: "))
 match n:
     case 1:
@@ -241,4 +346,3 @@ match n:
 
 '''
 three()
-'''
