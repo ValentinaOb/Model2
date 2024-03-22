@@ -59,33 +59,53 @@ def two():
     plt.show()
 
 def three():
-    l=100
+    L=100
     #t=0
     #N=0
-    t=[l]
-    N=[l]
-    t[0]=0
-    N[0]=0
+    t=[]
+    N=[]
 
     lam=8
     t1=0
     n=0
     
 
-    while(n<=100):
+    while(t1<=L):
         z=random.normalvariate(0,1)
-        if z!=0:
-            l=(-1/lam)*math.log(z)
-        #t=t+l
-        #N+=1
-            t1+=l
+        if z>0:
+            L=(-1/lam)*math.log(z)
+            t1+=L
             n+=1
             t.append(t1)
             N.append(n)
-        #print(t)
 
     plt.plot(t,N)
     plt.title("Ex.3")
     plt.show()
+
+def four():
+    lam=6
+    k=9
+    T=100
+
+    t1=0
+    N=[]
+    t2=[]
+
+    while(t1<=T):
+        n=0
+        while n<k:
+            z=random.normalvariate(0,1)
+            if z>0:
+                T=(-1/lam)*math.log(z)
+                t1+=T
+                n+=1
+                t2.append(t1)
+                N.append(n)
+
+    plt.plot(t2,N)
+    plt.title("Ex.4")
+    plt.show()
+
 
 three()
