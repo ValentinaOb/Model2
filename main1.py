@@ -238,22 +238,27 @@ def two():
     
 def three():
     lam=8   
-    N=15
-    k=0
+    N=10
 
     P=[N]
+    P1=[N]
     t=[N]
     t[0]=0
     h=0
+    h1=0
 
     for i in range(int(N)):
-        P.append(math.exp(-lam*i)*(((lam*i)**k)/math.factorial(k)))
-
-        t.append(k)
-        k+=1
+        h+=int(np.random.poisson(lam,1))
+        h1+=int(np.random.poisson(lam,1))
+        #P.append(math.exp(-lam*i)*(((lam*i)**k)/math.factorial(k)))
+        
+        P.append(h)
+        P1.append(h1)
+        t.append(i)
 
     plt.title("Ex.3")
-    plt.hist(P,t, label="P")
+    plt.step(P,t)
+    plt.step(P1,t)
     plt.show()
 
  
