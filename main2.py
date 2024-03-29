@@ -31,6 +31,7 @@ def two():
     data=[]
     for i in t:
         data.append(float(i))
+    data.sort()
 
     a=0
     for i in data:
@@ -52,26 +53,46 @@ def two():
     d=d/200
     o=math.sqrt(d)
 
+    
+    new=[]
+    k=0
+
+    for i in data:
+        new.append(i-k)
+        k=i
+
+    L=[]
+    k=0
+
+    for i in new:
+        L.append(1/i)
+    print(" ",L)
+
 
     plt.title("Ex.2")
-    #plt.hist(data, y)
-    plt.plot(y,d1)
+    plt.step(y,data)
+    plt.plot(y,L)
     plt.show()
 
 def three():
-    L=100
+    Tk=100
     #t=0
     #N=0
     t=[]
     N=[]
 
-    lam=8
     t1=0
     n=0
-    
+    k=0
+    lam=0
 
-    while(t1<=L):
+    while(t1<=Tk):
         z=random.normalvariate(0,1)
+        while(k<5):
+            k+=1
+            z1=random.normalvariate(0,1)
+            lam+=z1**2
+
         if z>0:
             L=(-1/lam)*math.log(z)
             t1+=L
@@ -79,33 +100,30 @@ def three():
             t.append(t1)
             N.append(n)
 
-    plt.plot(t,N)
-    plt.title("Ex.3")
-    plt.show()
+    print(" ",t)
 
 def four():
     lam=6
     k=9
-    T=100
+    Tk=100
 
     t1=0
-    N=[]
     t2=[]
+    n=0
 
-    while(t1<=T):
-        n=0
-        while n<k:
-            z=random.normalvariate(0,1)
-            if z>0:
-                T=(-1/lam)*math.log(z)
-                t1+=T
-                n+=1
+    while(t1<=Tk):
+        z=random.normalvariate(0,1)
+        if z>0:
+            T=(-1/lam)*math.log(z)
+            t1+=T
+            n+=1
+            if(n==k):
                 t2.append(t1)
-                N.append(n)
+                n=0
+            
 
-    plt.plot(t2,N)
-    plt.title("Ex.4")
-    plt.show()
+    print("Ex.4")
+    print(" ", t2)
 
 
-three()
+four()
