@@ -6,125 +6,227 @@ import random
 import math 
 
 def one():
-    file = open('1.txt', 'r')
-    text = file.read()
-    t=[]
-    t=text.split(' ')
+    L=10     #шт/год
+    u=1     #шт/год 1 кан
+    u1=3    #шт/год 2 кан
 
-    data=[]
-    for i in t:
-        data.append(float(i))
+    order=[]
+    can=[]
+    can1=[]
+    wait=[]
+    wait1=[]
+
+    can_s=False
+    can1_s=False
+    wait_s=True
+    wait1_s=True
+
+
+    ready=[]
+    bad=[]
+
+    order.append(0) #order[0]=0
+    sum_ord=0
+    sum_c=0
+    sum_c1=0
+
 
     y=[]
-    for i in range(200):
-        y.append(i)
-
-    plt.title("Ex.1")
-    plt.plot(data, y)
-    plt.show()
     
-def two():
-    file = open('1.txt', 'r')
-    text = file.read()
-    t=[]
-    t=text.split(' ')
+    #order
+    for i in range(L):
+        z=random.expovariate(1)
+        sum_ord+=z
+        order.append(sum_ord)
 
-    data=[]
-    for i in t:
-        data.append(float(i))
-    data.sort()
-
-    a=0
-    for i in data:
-        a+=i
-
-    y=[]
-    for i in range(200):
-        y.append(i)
-
-    a=a/200 #середнє арифметичне
-    d=0 #дисперчія
-    o=0 #середнє вибіркове
-    d1=[]
+    can.append(order[0])
     
-    for i in data:
-        d+=(i-a)**2
-        d1.append(d)
-        
-    d=d/200
-    o=math.sqrt(d)
+    can1.append(order[1])
+    
+    can_iter=iter(can)
+    can1_iter=iter(can1)
+
+    sum_c+=can[0]
+    sum_c1+=can1[0]
+
+    z=random.expovariate(1)      
+    sum_c+=z  
+    can.append(sum_c)
+
+    z=random.expovariate(1)      
+    sum_c1+=z  
+    can1.append(sum_c1)
+    next(can_iter)
+    next(can1_iter)
 
     
-    new=[]
-    k=0
+    length=0
+                        
+    
+    
+    for i in order:
+        length+=i
+        if(order.index(i)!=0 and order.index(i)!=1):        
+            new=next(can_iter)
+            new1=next(can1_iter)
+            if(i<new and i<new1):
 
-    for i in data:
-        new.append(i-k)
-        k=i
+                if(wait_s==True):
+                    wait.append(length)
+                    wait_s=False
 
-    L=[]
-    k=0
+                elif(wait1_s==True):
+                    wait1.append(length)
+                    wait_s=False
 
-    for i in new:
-        L.append(1/i)
-    print(" ",L)
+                else:
+                    bad.append(length)
 
+            elif(i>=new):
+                if(wait_s==False):
+                    wait.append(length)
+                    wait_s=True
 
-    plt.title("Ex.2")
-    plt.step(y,data)
-    plt.plot(y,L)
-    plt.show()
+                if(wait1_s==False):
+                    wait1.append(length)
+                    wait1_s=True
+                
+                ready.append(length)
 
-def three():
-    Tk=100
-    #t=0
-    #N=0
-    t=[]
-    N=[]
+            elif(i==new1):
+                if(wait_s==False):
+                    wait.append(length)
+                    wait_s=True
 
-    t1=0
-    n=0
-    k=0
-    lam=0
-
-    while(t1<=Tk):
-        z=random.normalvariate(0,1)
-        while(k<5):
-            k+=1
-            z1=random.normalvariate(0,1)
-            lam+=z1**2
-
-        if z>0:
-            L=(-1/lam)*math.log(z)
-            t1+=L
-            n+=1
-            t.append(t1)
-            N.append(n)
-
-    print(" ",t)
-
-def four():
-    lam=6
-    k=9
-    Tk=100
-
-    t1=0
-    t2=[]
-    n=0
-
-    while(t1<=Tk):
-        z=random.normalvariate(0,1)
-        if z>0:
-            T=(-1/lam)*math.log(z)
-            t1+=T
-            n+=1
-            if(n==k):
-                t2.append(t1)
-                n=0
+                if(wait1_s==False):
+                    wait1.append(length)
+                    wait1_s=True
+                
+                ready.append(length)
             
+            else:
+               bad.append(i)
 
-    print("Ex.4")
-    print(" ", t2)
 
 
-four()
+            z=random.expovariate(1)      
+            sum_c+=z  
+            can.append(sum_c)
+
+            z=random.expovariate(1)      
+            sum_c1+=z  
+            can1.append(sum_c1)
+                        
+
+    y=[]
+    for i in range(len(bad)):
+        y.append(1)
+    plt.plot(bad, y, linestyle='dashed', linewidth = 1, marker='o', markerfacecolor='red', markersize=3)
+    y=[]
+    for i in range(len(ready)):
+        y.append(2)
+    plt.plot(ready, y, linestyle='dashed', linewidth = 1, marker='o', markerfacecolor='red', markersize=3)
+    y=[]
+    for i in range(len(wait1)):
+        y.append(3)
+    plt.plot(wait1, y, linestyle='dashed', linewidth = 1, marker='o', markerfacecolor='red', markersize=3)
+    y=[]
+    for i in range(len(wait)):
+        y.append(4)
+    plt.plot(wait, y, linestyle='dashed', linewidth = 1, marker='o', markerfacecolor='red', markersize=3)
+    y=[]
+    for i in range(len(can1)):
+        y.append(5)
+    plt.plot(can1, y, linestyle='dashed', linewidth = 1, marker='o', markerfacecolor='red', markersize=3)   
+    y=[]
+    for i in range(len(can)):
+        y.append(6)
+    plt.plot(can, y, linestyle='dashed', linewidth = 1, marker='o', markerfacecolor='red', markersize=3)
+    y=[]
+    for i in range(len(order)):
+        y.append(7)
+    plt.plot(order, y, linestyle='dashed', linewidth = 1, marker='o', markerfacecolor='red', markersize=3)   
+
+
+    plt.show()
+
+
+'''
+    plt.plot(order, y, linestyle='dashed', linewidth = 1, marker='o', markerfacecolor='red', markersize=3)
+    y=[]
+    for i in range(len(can)):
+        y.append(4)
+    plt.plot(can, y, linestyle='dashed', linewidth = 1, marker='o', markerfacecolor='red', markersize=3)
+    y=[]
+    for i in range(len(can1)):
+        y.append(3)
+    plt.plot(can1, y, linestyle='dashed', linewidth = 1, marker='o', markerfacecolor='red', markersize=3)
+    y=[]
+    for i in range(len(wait)):
+        y.append(2)
+    plt.plot(wait, y, linestyle='dashed', linewidth = 1, marker='o', markerfacecolor='red', markersize=3)
+    y=[]
+    for i in range(len(wait1)):
+        y.append(1)
+    plt.plot(wait1, y, linestyle='dashed', linewidth = 1, marker='o', markerfacecolor='red', markersize=3)                
+'''
+
+    
+
+'''
+    #can1
+    for i in L:
+        z=random.expovariate(1)      
+        sum_c+=z  
+        can.append(sum_c)
+
+
+    #can2
+    for i in L:
+        z=random.expovariate(1)        
+        sum_c1+=z  
+        can1.append(sum_c1)
+    
+    '''
+    #wait1
+'''
+    for i in L:
+        z=random.expovariate(1)        
+        sum_c1+=z  
+        can1.append(sum_c1)
+    
+
+    wait.append(can[1])
+    wait.append(order[3])
+    wait.append(can[2])
+    wait.append(can1[1])
+    wait.append(can1[2])
+    wait.append(can[3])
+
+    wait1.append(order[4])
+    wait1.append(wait[3])
+    wait1.append(order[6])
+    wait1.append(wait[4])
+    wait1.append(order[7])
+    wait1.append(wait[5])
+
+
+    ready.append(can[1])
+    ready.append(can[2])
+    ready.append(can[3])
+    ready.append(can[4])
+
+    k=0
+    for i in order:
+        if(k==5):
+            bad.append(i)
+            k=0
+        k+=1
+'''        
+    
+
+
+
+    
+
+one()
