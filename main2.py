@@ -68,10 +68,11 @@ def two():
         L.append(1/i)
     print(" ",L)
 
+    
 
     plt.title("Ex.2")
-    plt.step(y,data)
-    plt.plot(y,L)
+    plt.plot(y,data)
+    plt.step(y,L)
     plt.show()
 
 def three():
@@ -126,4 +127,4 @@ def four():
     print(" ", t2)
 
 
-four()
+two()
