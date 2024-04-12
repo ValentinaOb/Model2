@@ -83,8 +83,8 @@ import math
 
 def two():
     L=10     #шт/год
-    u=1     #шт/год 1 кан
-    u1=3    #шт/год 2 кан
+    u=10     #шт/год 1 кан
+    u1=30    #шт/год 2 кан
 
     order=[]
     can=[]
@@ -92,8 +92,8 @@ def two():
     wait=[]
     wait1=[]
 
-    can_s=False
-    can1_s=False
+    can_s=True #зайнятo
+    can1_s=True
     wait_s=True
     wait1_s=True
 
@@ -139,17 +139,29 @@ def two():
     length=0
     new_sum=0
     new1_sum=0
+
+
+    new=next(can_iter)
+    new_sum+=new
+    new1=next(can1_iter)
+    new1_sum+=new1
                         
-    
+    sum_c=new_sum
+    sum_c1=new1_sum
+
     
     for i in order:
-        length+=i
+        length=i
         if(order.index(i)!=0 and order.index(i)!=1):   
-            new=next(can_iter)
-            new_sum+=new
-            new1=next(can1_iter)
-            new1_sum+=new1
-            
+
+            '''
+            if(can_s==False):
+                new=next(can_iter)
+                new_sum+=new
+                new1=next(can1_iter)
+                new1_sum+=new1
+            '''
+
                  
             if(length<new_sum and length<new1_sum):
                 if(wait_s==True):
@@ -168,44 +180,144 @@ def two():
                 if(length>new_sum and length<new1_sum):
                     #
                     if(wait_s==False):
-                        wait.append(sum_c)
+                        wait.append(new_sum)
                         wait_s=True
+
+                        ready.append(new_sum)
+
+                        #
+                        z=random.expovariate(u)      
+                        #sum_c+=z  
+                        new_sum+=new
+                        can.append(new_sum)
+
+                        #new=next(can_iter)
+                        
+
+
                     #
                     #wait.append(sum_c)
                     #wait_s=True
                     if(wait1_s==False):
                         wait_s=False
                         wait1.append(length)
-                        ready.append(sum_c)
-                        wait1_s=True
+                        ready.append(new_sum)
+                        wait1_s=False
                     else:
-                        wait.append(length)
-                        wait_s=False
+                        can.append(length)
+                        ready.append(new_sum)
+                        #wait.append(length)
+                        #wait_s=False
+
+                        #!?
+                        z=random.expovariate(u)    
+                        new_sum+=new
+                        can.append(new_sum)
+
+                        '''
+                        sum_c+=z  
+                        can.append(sum_c)
+
+                        new=next(can_iter)
+                        new_sum+=new
+                        '''
 
                 elif(length>new1_sum and length<new_sum):
                     #
                     if(wait_s==False):
-                        wait.append(sum_c1)
+                        wait.append(new1_sum)
                         wait_s=True
+
+                        ready.append(new1_sum)
+
+                        #
+                        new1_sum+=new1
+                        can1.append(new1_sum)
+                        '''
+                        z=random.expovariate(u1)      
+                        sum_c1+=z  
+                        can1.append(sum_c1)
+
+                        new1=next(can1_iter)
+                        new1_sum+=new1
+                        '''
                     #
                     #wait.append(sum_c1)
                     #wait_s=True
                     if(wait1_s==False):
                         wait_s=False
                         wait1.append(length)
-                        ready.append(sum_c1)
-                        wait1_s=True
+                        ready.append(new1_sum)
+                        wait1_s=False
                     else:
-                        wait.append(length)
-                        wait_s=False
+                        #wait.append(length)
+                        #wait_s=False
+
+                        can1.append(length)
+                        ready.append(new1_sum)
+
+                        #!?
+                        z=random.expovariate(u)    
+                        new1_sum+=new1
+                        can1.append(new1_sum)
+
+                        '''                        
+                        z=random.expovariate(u1)      
+                        sum_c1+=z  
+                        can1.append(sum_c1)
+
+                        new1=next(can1_iter)
+                        new1_sum+=new1
+                        '''
                 
                 else:
                     #
-                    if(sum_c<sum_c1):
+                    #if(sum_c<sum_c1):
+                    if(new_sum<new1_sum):
                         #
+
+                        if(wait_s==False):
+                            wait.append(new_sum)
+                            wait_s=True
+                            if(wait1_s==False):
+                                wait1.append(new_sum)
+                                wait_s=False
+                                #wait1_s=True
+                                wait1.append(length)
+                                #wait1_s=False
+                            else:
+                                wait1.append(length)
+                                wait1_s=False
+                        else:
+                            can.append(length)
+                            ready.append(new_sum)
+
+                            #
+                            z=random.expovariate(u)    
+                            new_sum+=new
+                            can.append(new_sum)
+                            '''
+                            z=random.expovariate(u)      
+                            sum_c+=z  
+                            can.append(sum_c)
+                            new=next(can_iter)
+                            new_sum+=new
+                            '''
+
+                        '''
                         if(wait_s==False):
                             wait.append(sum_c)
                             wait_s=True
+
+                            ready.append(sum_c)
+
+                            #
+                            z=random.expovariate(u)      
+                            sum_c+=z  
+                            can.append(sum_c)
+
+                            new=next(can_iter)
+                            new_sum+=new
                         #
                         #wait.append(sum_c)
                         #wait_s=True
@@ -213,39 +325,92 @@ def two():
                             wait_s=False
                             wait1.append(length)
                             ready.append(sum_c)
-                            wait1_s=True
+                            wait1_s=False
                         else:
                             wait.append(length)
                             wait_s=False  
+
+                            #!?
+                            z=random.expovariate(u)      
+                            sum_c+=z  
+                            can.append(sum_c)
+
+                            new=next(can_iter)
+                            new_sum+=new
                         #
+                        '''
 
 
                     else:
                         #
                         if(wait_s==False):
+                            wait.append(new1_sum)
+                            wait_s=True
+                            if(wait1_s==False):
+                                wait1.append(new1_sum)
+                                wait_s=False
+                                #wait1_s=True
+                                wait1.append(length)
+                                #wait1_s=False
+                            else:
+                                wait1.append(length)
+                                wait1_s=False
+                        else:
+                            can1.append(length)
+                            ready.append(new1_sum)
+
+                            #
+                            z=random.expovariate(u)    
+                            new1_sum+=new1
+                            can1.append(new1_sum)
+                            '''
+                            z=random.expovariate(u1)      
+                            sum_c1+=z  
+                            can1.append(sum_c1)
+                            new1=next(can1_iter)
+                            new1_sum+=new1'''
+
+                        '''
+                        if(wait_s==False):
                             wait.append(sum_c1)
                             wait_s=True
+
+                            ready.append(sum_c1)
+
+                            #
+                            z=random.expovariate(u1)      
+                            sum_c1+=z  
+                            can1.append(sum_c1)
+                            new1=next(can1_iter)
+                            new1_sum+=new1
                         #
                         if(wait1_s==False):
                             wait_s=False
                             wait1.append(length)
                             ready.append(sum_c1)
-                            wait1_s=True
+                            wait1_s=False
                         else:
                             wait.append(length)
                             wait_s=False  
 
+                            #!?
+                            z=random.expovariate(u1)      
+                            sum_c1+=z  
+                            can1.append(sum_c1)
+                            new1=next(can1_iter)
+                            new1_sum+=new1
+                        '''
 
 
-                
+                '''
+                z=random.expovariate(1)      
+                sum_c+=z  
+                can.append(sum_c)
 
-            z=random.expovariate(1)      
-            sum_c+=z  
-            can.append(sum_c)
-
-            z=random.expovariate(3)      
-            sum_c1+=z  
-            can1.append(sum_c1)
+                z=random.expovariate(3)      
+                sum_c1+=z  
+                can1.append(sum_c1)
+                '''
                         
 
     print("Order: ")
