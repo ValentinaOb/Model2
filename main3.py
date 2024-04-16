@@ -411,7 +411,9 @@ def two():
                 sum_c1+=z  
                 can1.append(sum_c1)
                 '''
-                        
+
+    ready.append(can[-1])
+    ready.append(can1[-1])                        
 
     print("Order: ")
     print(order)
