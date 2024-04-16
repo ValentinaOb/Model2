@@ -434,7 +434,10 @@ def two():
     print(bad)
 
 
-
+    Nr=len(can)/2+len(can1)/2
+    print("\n\nP ready: ", (Nr/(L+1)))
+    print("CMO: ", (Nr/5))
+    print("P bad: ", (1-(Nr/(L+1))))
 
 
     y=[]
