@@ -85,6 +85,9 @@ def two():
     L=10     #шт/год
     u=10     #шт/год 1 кан
     u1=30    #шт/год 2 кан
+    
+    k=0     #зайняті одночасно 2-ва can
+    k1=0     #зайняті одночасно 2-ва wait
 
     order=[]
     can=[]
@@ -164,6 +167,8 @@ def two():
 
                  
             if(length<new_sum and length<new1_sum):
+                k+=1
+
                 if(wait_s==True):
                     wait.append(length)
                     wait_s=False
@@ -173,6 +178,7 @@ def two():
                     wait1_s=False
                 
                 else:
+                    k1+=1
                     bad.append(length)
 
             
@@ -438,6 +444,18 @@ def two():
     print("\n\nP ready: ", (Nr/(L+1)))
     print("CMO: ", (Nr/5))
     print("P bad: ", (1-(Nr/(L+1))))
+
+    two=k/L
+    one=1-two
+    print("1 can: ", one)
+    print("2 cans: ", two)
+
+    print("Average: ", (1*one+2*two))
+
+    two1=k1/L
+    one1=1-two1
+    print("1 wait: ", one1)
+    print("2 waits: ", two1)
 
 
     y=[]
